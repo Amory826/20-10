@@ -16,17 +16,22 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Pacifico&family=Quicksand:wght@500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Pacifico&family=Quicksand:wght@500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             min-height: 100vh;
@@ -79,10 +84,13 @@
         }
 
         @keyframes pulse-click {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateX(-50%) scale(1);
                 opacity: 0.85;
             }
+
             50% {
                 transform: translateX(-50%) scale(1.08);
                 opacity: 1;
@@ -91,7 +99,8 @@
         }
 
         /* SVG Heart Text Path */
-        #theSvg, #theSvg * {
+        #theSvg,
+        #theSvg * {
             pointer-events: none !important;
         }
 
@@ -131,7 +140,8 @@
             z-index: 5;
         }
 
-        #main, #sub {
+        #main,
+        #sub {
             position: absolute;
             top: 0;
             left: 0;
@@ -178,9 +188,12 @@
         }
 
         @keyframes up {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-28px);
             }
@@ -357,6 +370,7 @@
                 transform: translateY(0) rotate(-45deg) scale(0.3);
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(-150px) rotate(-45deg) scale(1.3);
                 opacity: 0.5;
@@ -400,9 +414,12 @@
         }
 
         @keyframes scale {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scaleX(1);
             }
+
             50% {
                 transform: scaleX(0.85);
             }
@@ -431,55 +448,67 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 25px 12px;
+            padding: 30px 14px;
             position: relative;
         }
 
-        .boxLetter .formLetter {
+        .cardLetterWrapper {
             position: relative;
-            width: 94%;
-            max-width: 580px;
-            min-height: 360px;
-            background-color: #FFEBEB;
-            border-radius: 20px;
-            z-index: 100;
-            padding: 16px 14px;
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 28px;
+            width: 95%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
         }
 
+        .cardLetterWrapper .before,
         .boxLetter .before {
             position: absolute;
-            width: 94%;
-            max-width: 580px;
-            height: 360px;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             background: #fff;
-            transform: rotate(-5deg);
+            transform: rotate(-4deg);
             border-radius: 20px;
             z-index: 10;
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 15px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 18px;
+            pointer-events: none;
+            transition: transform 0.3s ease;
         }
 
         @media (min-width: 768px) {
+
+            .cardLetterWrapper .before,
             .boxLetter .before {
-                transform: rotate(-10deg);
-                height: 380px;
+                transform: rotate(-6deg);
             }
-            .boxLetter .formLetter {
-                min-height: 380px;
-            }
+        }
+
+        .cardLetterWrapper .formLetter,
+        .boxLetter .formLetter {
+            position: relative;
+            width: 100%;
+            min-height: 380px;
+            background-color: #FFEBEB;
+            border-radius: 20px;
+            z-index: 20;
+            padding: 18px 16px;
+            box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 30px;
+            cursor: pointer;
         }
 
         .formLetter .wrapperLetter {
             position: relative;
             width: 100%;
-            min-height: 328px;
+            min-height: 340px;
             border: 2px dashed #FF6666;
             border-radius: inherit;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px 12px 60px 12px;
+            padding: 24px 14px 64px 14px;
             overflow: hidden;
         }
 
@@ -571,14 +600,15 @@
         }
 
         .textLetter .contentLetter {
-            font-size: clamp(16px, 4vw, 19px);
+            font-size: clamp(15px, 3.6vw, 18px);
             text-align: center;
             padding: 0 10px;
             font-family: 'Dancing Script', cursive;
-            line-height: 1.55;
+            line-height: 1.65;
             color: #2b2b2b;
             position: relative;
             word-wrap: break-word;
+            white-space: pre-line;
         }
 
         .fa-xmark {
@@ -611,7 +641,7 @@
             bottom: 5px;
             left: 50%;
             transform: translateX(-50%);
-            opacity: 0.8;
+            opacity: 0.35;
             pointer-events: none;
             z-index: 10;
         }
@@ -722,6 +752,7 @@
             from {
                 transform: rotate(0deg);
             }
+
             to {
                 transform: rotate(360deg);
             }
@@ -1007,36 +1038,38 @@
     <div class="wrapperLetterForm" style="display: none;">
         <div class="boxLetter">
             <i class="fa-solid fa-xmark"></i>
-            <div class="formLetter">
-                <div class="heartLetter">
-                    <div class="heartLetterItem"></div>
-                </div>
-                <div class="heartLetter">
-                    <div class="heartLetterItem"></div>
-                </div>
-                
-                <div class="wrapperLetter">
-                    <div class="giftbox">
-                        <div class="img">
-                            <img src="./image/giftbox.png" alt="Gift">
+            <div class="cardLetterWrapper">
+                <div class="before"></div>
+                <div class="formLetter">
+                    <div class="heartLetter">
+                        <div class="heartLetterItem"></div>
+                    </div>
+                    <div class="heartLetter">
+                        <div class="heartLetterItem"></div>
+                    </div>
+
+                    <div class="wrapperLetter">
+                        <div class="giftbox">
+                            <div class="img">
+                                <img src="./image/giftbox.png" alt="Gift">
+                            </div>
                         </div>
-                    </div>
-                    <div class="textLetter">
-                        <h2></h2>
-                        <p class="contentLetter"></p>
-                        <div class="heartAnimation">
-                            <img src="./image/heartAnimation.gif" alt="Heart">
+                        <div class="textLetter">
+                            <h2></h2>
+                            <p class="contentLetter"></p>
+                            <div class="heartAnimation">
+                                <img src="./image/heartAnimation.gif" alt="Heart">
+                            </div>
                         </div>
-                    </div>
-                    <div class="mewmew1">
-                        <img src="./image/mewmew.gif" alt="Cat">
-                    </div>
-                    <div class="mewmew2">
-                        <img src="./image/mewmew.gif" alt="Cat">
+                        <div class="mewmew1">
+                            <img src="./image/mewmew.gif" alt="Cat">
+                        </div>
+                        <div class="mewmew2">
+                            <img src="./image/mewmew.gif" alt="Cat">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="before"></div>
         </div>
     </div>
 
@@ -1187,12 +1220,18 @@
     <script>
         let indexText = 0;
         let textLetter = document.querySelector('.textLetter h2');
-        const textLetterH2 = "Gửi You💗!";
+        const textLetterH2 = "Gửi Em💗!";
         let timoutTextLetter = null;
 
         let indexTextContent = 0;
         let textLetterContent = document.querySelector('.contentLetter');
-        const textLetterP = "Hôm nay là ngày 20/10 , ngày phụ nữ việt nam .Tớ xin gủi lời chúc mừng đến cậu ,chúc cậu có một ngày lễ tràn đầy niềm vui và hạnh phúc ,luôn may mắn và xinh đẹp .Xin gửi tất cả những điều tốt đẹp nhất đến cậu.💗";
+        const textLetterP = `Nhân ngày Phụ nữ Việt Nam 20/10, gửi đến em những lời chúc ngọt ngào và chân thành nhất từ tận đáy lòng! 🌸
+
+Chúc em luôn rạng rỡ, ngập tràn niềm vui và mỗi ngày trôi qua đều là một ngày thật dịu dàng, bình yên. Mong rằng nụ cười xinh đẹp sẽ luôn nở trên môi em, dù là hôm nay hay bất kể ngày nào mai sau.
+
+Chúc em luôn tự tin tỏa sáng theo cách riêng của mình, gặt hái thật nhiều thành công và luôn được nâng niu, yêu thương, chở che. Cảm ơn sự xuất hiện của em đã mang lại thật nhiều điều ngọt ngào và ấm áp.
+
+Chúc em có một ngày 20/10 thật tuyệt vời, hạnh phúc và ngập tràn yêu thương nhé! 💖✨`;
         let timoutTextLetterContent = null;
         let autoTransitionTimer = null;
 
@@ -1227,13 +1266,13 @@
             } else {
                 clearInterval(timoutTextLetterContent);
                 timoutTextLetterContent = null;
-                // Letter finished typing! Auto transition after 1.8s
+                // Letter finished typing! Auto transition after 3.8s
                 if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
                 autoTransitionTimer = setTimeout(() => {
                     if ($('.wrapperLetterForm').is(':visible')) {
                         startGalaxyExperience();
                     }
-                }, 1800);
+                }, 3800);
             }
         }
 
@@ -1244,7 +1283,7 @@
             textLetterContent.textContent = '';
             timoutTextLetterContent = setInterval(() => {
                 textCharLetterContent();
-            }, 38);
+            }, 28);
         }
 
         function openLetterModal() {
@@ -1391,8 +1430,8 @@
 
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 const isShort = text.length <= 8;
-                const baseSize = isHeart 
-                    ? (Math.random() * 6 + 16) 
+                const baseSize = isHeart
+                    ? (Math.random() * 6 + 16)
                     : (isShort ? (Math.random() * 4 + 14) : (Math.random() * 4 + 15));
 
                 const alpha = Math.max(0.48, Math.min(1.0, (z + 200) / 400 * 0.52 + 0.48));
@@ -1570,8 +1609,8 @@
                             item.text = loveTexts[Math.floor(Math.random() * loveTexts.length)];
                             item.color = colors[Math.floor(Math.random() * colors.length)];
                             const isShort = item.text.length <= 8;
-                            item.baseSize = item.isHeart 
-                                ? (Math.random() * 6 + 16) 
+                            item.baseSize = item.isHeart
+                                ? (Math.random() * 6 + 16)
                                 : (isShort ? (Math.random() * 4 + 14) : (Math.random() * 4 + 15));
                         }
 
@@ -1897,7 +1936,7 @@
                         if ($('.wrapperLetterForm').is(':visible')) {
                             startGalaxyExperience();
                         }
-                    }, 1400);
+                    }, 3500);
                 } else {
                     startGalaxyExperience();
                 }
