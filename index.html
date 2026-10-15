@@ -14,60 +14,177 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Pacifico&family=Quicksand:wght@500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            background-color: #fae1dd;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* First Screen: Rose */
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 97vh;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: #fae1dd;
         }
 
         .container svg {
-            width: 50%;
-            height: 50%;
-        }
-    </style>
-
-    <!-- aa2 -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
+            width: 85%;
+            max-width: 460px;
+            height: auto;
+            max-height: 60vh;
+            display: block;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
         }
 
-        .body-letter {
+        #text-click {
+            display: none;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Pacifico', 'Dancing Script', cursive;
+            color: #d62828;
+            font-size: clamp(24px, 6vw, 42px);
+            cursor: pointer;
+            text-align: center;
+            width: 90%;
+            user-select: none;
+            letter-spacing: 1px;
+            animation: pulse-click 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-click {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.85;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.08);
+                opacity: 1;
+                text-shadow: 0 0 16px rgba(214, 40, 40, 0.45);
+            }
+        }
+
+        /* SVG Heart Text Path */
+        #theSvg, #theSvg * {
+            pointer-events: none !important;
+        }
+
+        #theSvg {
+            width: 92%;
+            max-width: 580px;
+            max-height: 82vh;
+            display: block;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            pointer-events: none !important;
+        }
+
+        text {
+            fill: #e6668a;
+            font-family: consolas, monospace;
+            font-size: 9px;
+            pointer-events: none !important;
+        }
+
+        /* Castle / Envelope Screen */
+        #castle {
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
             height: 100vh;
-            background-color: #fae1dd;
+            height: 100dvh;
+            background-color: transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        #main, #sub {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .dustDef {
+            position: absolute;
+            background-color: white;
+            border-radius: 100%;
+            box-shadow: 0 0 3px 1px white;
+            opacity: 0;
         }
 
         .letter {
             position: relative;
-            z-index: 1;
+            z-index: 3;
+            transform-origin: center center;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 420px) {
+            .letter {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 350px) {
+            .letter {
+                transform: scale(0.8);
+            }
         }
 
         .valentines {
             position: relative;
-            top: 50px;
+            top: 30px;
             cursor: pointer;
             animation: up 3s linear infinite;
+            -webkit-tap-highlight-color: transparent;
         }
 
         @keyframes up {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
-
             50% {
-                transform: translateY(-30px);
+                transform: translateY(-28px);
             }
         }
-
 
         .envelope {
             position: relative;
@@ -96,6 +213,7 @@
             top: 5px;
             left: 15px;
             box-shadow: -5px -5px 100px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
         }
 
         .card:before {
@@ -104,20 +222,21 @@
             border: 3px solid #003049;
             border-style: dotted;
             width: 240px;
-            heighT: 140px;
+            height: 140px;
             left: 12px;
             top: 12px;
         }
 
         .text {
             position: absolute;
-            font-family: 'Brush Script MT', cursive;
+            font-family: 'Dancing Script', 'Brush Script MT', cursive;
             font-size: 28px;
             text-align: center;
-            line-height: 25px;
+            line-height: 26px;
             top: 19px;
             left: 85px;
             color: #003049;
+            pointer-events: none;
         }
 
         .heart {
@@ -154,7 +273,7 @@
 
         .hearts {
             position: absolute;
-            top: 0
+            top: 0;
         }
 
         .one,
@@ -238,7 +357,6 @@
                 transform: translateY(0) rotate(-45deg) scale(0.3);
                 opacity: 1;
             }
-
             100% {
                 transform: translateY(-150px) rotate(-45deg) scale(1.3);
                 opacity: 0.5;
@@ -255,6 +373,7 @@
             width: 0;
             height: 0;
             z-index: 10;
+            pointer-events: none;
         }
 
         .front:before {
@@ -281,385 +400,332 @@
         }
 
         @keyframes scale {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scaleX(1);
             }
-
             50% {
                 transform: scaleX(0.85);
             }
         }
 
-        .hover-animation {
-            animation: hover 1.75s ease-in-out infinite;
-        }
-
-        #castle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #fae1dd;
-        }
-
-        .dustDef {
-            position: absolute;
-            background-color: white;
-            border-radius: 100%;
-            box-shadow: 0 0 3px 1px white;
-            opacity: 0;
-        }
-
-        @keyframes hover {
-            0% {
-                margin-top: 60px;
-            }
-
-            50% {
-                margin-top: 50px;
-            }
-
-            100% {
-                margin-top: 60px;
-            }
-        }
-
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 25px 0 #e8b2ca;
-            }
-
-            50% {
-                box-shadow: 0 0 45px 0 #e8b2ca;
-            }
-
-            100% {
-                box-shadow: 0 0 25px 0 #e8b2ca;
-            }
-        }
-
-        @keyframes fall {
-            5% {
-                top: 209px;
-                left: 105px;
-                transform: rotate(55deg) scale(0.9, 0.95) skew(-18deg);
-                opacity: 0.9;
-            }
-
-            30% {
-                left: 90px;
-            }
-
-            55% {
-                left: 130px;
-            }
-
-            60%,
-            100% {
-                top: 380px;
-                transform: rotate(30deg) scale(0.9, 0.95) skew(-32deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes floatAnimate {
-            0% {
-                background-size: 105% 120%;
-                background-position: 0 0;
-                opacity: 0.7;
-            }
-
-            50% {
-                background-size: 100% 100%;
-                background-position: 0 0;
-                opacity: 0.5;
-            }
-
-            100% {
-                background-size: 105% 120%;
-                background-position: 0 0;
-                opacity: 0.7;
-            }
-        }
-    </style>
-    <style>
-        svg {
-
-            width: 80%;
-            display: block;
-            position: absolute;
-            margin: auto;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-        }
-
-        text {
-            fill: #e6668a;
-            font-family: consolas;
-            font-size: 9px;
-        }
-
-        p {
-            position: absolute;
-            z-index: 2
-        }
-
-        label {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            opacity: .8
-        }
-
-        /* style letter */
-        /* .box-content.active {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-        }
-
-        .box-content {
+        /* Popup Letter Modal */
+        .wrapperLetterForm {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 100000000000;
-            top: 0;
+            height: 100dvh;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .boxLetter {
+            width: 100%;
+            min-height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.7);
-            transform: scale(0.01);
-            visibility: hidden;
-            transition: 0.5s;
+            padding: 25px 12px;
+            position: relative;
         }
 
-        .fa-xmark {
+        .boxLetter .formLetter {
+            position: relative;
+            width: 94%;
+            max-width: 580px;
+            min-height: 360px;
+            background-color: #FFEBEB;
+            border-radius: 20px;
+            z-index: 100;
+            padding: 16px 14px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 28px;
+        }
+
+        .boxLetter .before {
             position: absolute;
-            right: 5%;
-            top: 5%;
-            font-size: 40px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .fa-xmark:hover {
-            filter: drop-shadow(0 0 10px #fff);
-        }
-
-        .image-decorate {
-            display: flex;
-            width: 700px;
+            width: 94%;
+            max-width: 580px;
+            height: 360px;
+            background: #fff;
+            transform: rotate(-5deg);
+            border-radius: 20px;
             z-index: 10;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 15px;
+        }
+
+        @media (min-width: 768px) {
+            .boxLetter .before {
+                transform: rotate(-10deg);
+                height: 380px;
+            }
+            .boxLetter .formLetter {
+                min-height: 380px;
+            }
+        }
+
+        .formLetter .wrapperLetter {
+            position: relative;
+            width: 100%;
+            min-height: 328px;
+            border: 2px dashed #FF6666;
+            border-radius: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 12px 60px 12px;
+            overflow: hidden;
+        }
+
+        .formLetter .heartLetter {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #FFEBEB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .heartLetter .heartLetterItem {
+            position: relative;
+            width: 9px;
+            height: 9px;
+            transform: rotate(45deg);
+            background: #FF6666;
+        }
+
+        .heartLetter:first-child {
+            right: 8px;
+            top: 8px;
+        }
+
+        .heartLetter:nth-child(2) {
+            left: 8px;
+            bottom: 8px;
+        }
+
+        .heartLetterItem::before,
+        .heartLetterItem::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+        }
+
+        .heartLetterItem::before {
+            top: -50%;
+        }
+
+        .heartLetterItem::after {
+            left: -50%;
+        }
+
+        .giftbox {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 44px;
+            height: 44px;
+            z-index: 20;
+        }
+
+        .giftbox .img {
+            width: 100%;
             height: 100%;
         }
 
-        .content1 {
-            position: absolute;
-            width: 700px;
-            height: 500px;
-            background-image: radial-gradient(circle farthest-corner at center, #f9edf3 10%, #ffd3ee 100%);
-            border-radius: 10px 70px 10px 70px;
-            box-shadow: 5px 5px 10px rgb(0, 0, 0);
-            cursor: pointer;
+        .giftbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .textLetter {
             width: 100%;
+            display: flex;
             flex-direction: column;
             justify-content: center;
-            display: flex;
             align-items: center;
             user-select: none;
+            z-index: 25;
+            padding: 8px 6px;
         }
 
         .textLetter h2 {
-            font-size: 30px;
+            font-size: clamp(24px, 5.5vw, 32px);
             font-family: 'Dancing Script', cursive;
+            color: #d62828;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .textLetter .contentLetter {
-            font-size: 19px;
+            font-size: clamp(16px, 4vw, 19px);
             text-align: center;
-            padding: 0px 30px;
-            margin-top: 10px;
+            padding: 0 10px;
             font-family: 'Dancing Script', cursive;
-            position: initial;
+            line-height: 1.55;
+            color: #2b2b2b;
+            position: relative;
+            word-wrap: break-word;
+        }
 
-        } */
+        .fa-xmark {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 200;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
 
+        .fa-xmark:hover,
+        .fa-xmark:active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
 
+        .heartAnimation {
+            position: absolute;
+            width: clamp(120px, 30vw, 180px);
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 10;
+        }
 
-        .letters{
-    position: absolute;
-    width: 65px;
-    transition: 10s ease-in-out;
-    cursor: pointer;
-    z-index: 1000;
-}
-.letters img{
-    width: 100%;
-}
-.wrapperLetterForm{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    display: none;
-}
-.boxLetter{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.boxLetter .formLetter{
-    position: relative;
-    width: 600px;
-    height: 350px;
-    background-color: #FFEBEB;
-    border-radius: 20px;
-    z-index: 100;
-    padding: 20px 15px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.formLetter .wrapperLetter{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 2px dashed #FF6666;
-    border-radius: inherit;
-    display: flex;
-}
-.boxLetter .before{
-    position: absolute;
-    width: 600px;
-    height: 350px;
-    background: #fff;
-    transform: rotate(-15deg);
-    border-radius: 20px;
-    z-index: 10;
-}
-.formLetter .heartLetter{
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #FFEBEB;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-}
-.heartLetter .heartLetterItem{
-    position: relative;
-    width: 10px;
-    height: 10px;
-    transform: rotate(45deg);
-    background: #FF6666;
-}
-.heartLetter:first-child{
-    right: 5px;
-    top: 10px;
-}
-.heartLetter:nth-child(2){
-    left: 5px;
-    bottom: 10px;
-}
-.heartLetterItem::before, .heartLetterItem::after{
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: inherit;
-}
-.heartLetterItem::before{
-    top: -50%;
-}
-.heartLetterItem::after{
-    left: -50%;
-}
-.giftbox{
-    position: relative;
-    width: 10%;
-    height: 100%;
-}
-giftbox .img {
-    position: absolute;
-    width: 50px;
-    top: 10px;
-    left: 20px;
-    z-index: 100;
-}
-.giftbox img{
-    width: 100%;
-}
-.textLetter {
+        .heartAnimation img {
             width: 100%;
-            flex-direction: column;
-            justify-content: center;
-            display: flex;
-            align-items: center;
+            display: block;
+        }
+
+        .mewmew1,
+        .mewmew2 {
+            position: absolute;
+            width: clamp(55px, 14vw, 85px);
+            bottom: 5px;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .mewmew1 {
+            left: 8px;
+        }
+
+        .mewmew2 {
+            right: 8px;
+        }
+
+        .mewmew1 img,
+        .mewmew2 img {
+            width: 100%;
+            display: block;
+        }
+
+        /* 3D Love Galaxy Screen */
+        #galaxy-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            z-index: 99999;
+            background: #030107;
+            background: radial-gradient(circle at center, #1a0820 0%, #0d0314 55%, #030107 100%);
+            overflow: hidden;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
         }
 
-        .textLetter h2 {
-            font-size: 30px;
-            font-family: 'Dancing Script', cursive;
+        #galaxy-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
         }
 
-        .textLetter .contentLetter {
-            font-size: 19px;
-            text-align: center;
-            padding: 0px 30px;
-            margin-top: 10px;
-            font-family: 'Dancing Script', cursive;
-            position: initial;
-
+        /* Controls */
+        .galaxy-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 30;
         }
-.fa-xmark{
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 25px;
-}
-.show{
-    display: block;
-}
-.heartAnimation{
-    position: absolute;
-    width: 200px;
-    bottom: 0;
-}
-.heartAnimation img{
-    width: 100%;
-}
-.mewmew1, .mewmew2{
-    position: absolute;
-    width: 90px;
-}
-.mewmew1{
-    bottom: 0;
-    left: 0;
-}
-.mewmew2{
-    bottom: 0;
-    right: 0;
-}
-.mewmew1 img, .mewmew2 img{
-    width: 100%;
-}
 
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.28);
+            transform: scale(1.1);
+            box-shadow: 0 0 18px rgba(255, 75, 110, 0.6);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn.playing {
+            color: #ff4d6d;
+            border-color: rgba(255, 77, 109, 0.7);
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+            animation: spinSlow 9s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -793,17 +859,19 @@ giftbox .img {
         }
 
         function get_T(t, index) {
+            if (index >= subpaths.length) index = subpaths.length - 1;
             let T;
             lengthAtT = pathlength * t;
-            if (index > 0) {
+            if (index > 0 && subpaths[index] && subpaths[index].previous) {
                 T =
                     (lengthAtT - subpaths[index].previous.pathLength) /
                     (subpaths[index].pathLength - subpaths[index].previous.pathLength);
-            } else {
+            } else if (subpaths[index]) {
                 T = lengthAtT / subpaths[index].pathLength;
+            } else {
+                T = 1;
             }
-            //console.log(T)
-            return T;
+            return Math.max(0, Math.min(1, T));
         }
 
         let T = get_T(t, index);
@@ -867,12 +935,14 @@ giftbox .img {
     </script>
 
     <div id="castle" style="display: none;">
+        <div id="main"></div>
+        <div id="sub"></div>
         <div class="letter">
             <div class="valentines">
                 <div class="envelope"></div>
                 <div class="front"></div>
                 <div class="card">
-                    <div class="text">Happy</br> Women's</br> Day!</div>
+                    <div class="text">Happy<br> Women's<br> Day!</div>
                     <div class="heart"></div>
                 </div>
                 <div class="hearts">
@@ -885,9 +955,7 @@ giftbox .img {
             </div>
             <div class="shadow"></div>
         </div>
-
     </div>
-
 
     <div class="container" id="rose-t">
         <svg viewBox="0 0 512 512">
@@ -933,60 +1001,63 @@ giftbox .img {
                                  c-16.072-12.613-41.381-26.674-72.329-23.977c-21.664,2.405-52.653,12.308-77.277,45.856c-13.392,19.922-16.495,52.272,4.132,72.986
                                  c3.371,3.385,7.075,6.243,11.008,8.573c4.885,2.894,10.125,4.964,15.515,6.228C354.624,212.802,357.947,181.899,370.903,162.627z" />
         </svg>
-        <p id="text-click" style=" display: none;   font-family: fantasy;
-        color: indianred;
-        font-size: 50px;
-        top: 80%;">Click me now !</p>
+        <p id="text-click">Click me now !</p>
     </div>
 
-    <!-- <div class="box-content">
-        <i class="fa-solid fa-xmark"></i>
-        <div class="content1">
-            <div class="image-decorate">
-                <div class="textLetter">
-                    <h2></h2>
-                    <p class="contentLetter"></p>
+    <div class="wrapperLetterForm" style="display: none;">
+        <div class="boxLetter">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="formLetter">
+                <div class="heartLetter">
+                    <div class="heartLetterItem"></div>
+                </div>
+                <div class="heartLetter">
+                    <div class="heartLetterItem"></div>
+                </div>
+                
+                <div class="wrapperLetter">
+                    <div class="giftbox">
+                        <div class="img">
+                            <img src="./image/giftbox.png" alt="Gift">
+                        </div>
+                    </div>
+                    <div class="textLetter">
+                        <h2></h2>
+                        <p class="contentLetter"></p>
+                        <div class="heartAnimation">
+                            <img src="./image/heartAnimation.gif" alt="Heart">
+                        </div>
+                    </div>
+                    <div class="mewmew1">
+                        <img src="./image/mewmew.gif" alt="Cat">
+                    </div>
+                    <div class="mewmew2">
+                        <img src="./image/mewmew.gif" alt="Cat">
+                    </div>
                 </div>
             </div>
-        </div> -->
+            <div class="before"></div>
+        </div>
+    </div>
 
+    <!-- 3D Love Galaxy Screen (After Letter) -->
+    <div id="galaxy-container" style="display: none;">
+        <canvas id="galaxy-canvas"></canvas>
 
-        <div class="wrapperLetterForm" style="display: none;">
-            <div class="boxLetter">
-                <i class="fa-solid fa-xmark"></i>
-                <div class="formLetter">
-                    <div class="heartLetter">
-                        <div class="heartLetterItem"></div>
-                    </div>
-                    <div class="heartLetter">
-                        <div class="heartLetterItem"></div>
-                    </div>
-                    
-                    <div class="wrapperLetter">
-                        <div class="giftbox">
-                            <div class="img">
-                                <img src="./image/giftbox.png" alt="">
-                            </div>
-                        </div>
-                        <div class="textLetter">
-                            <h2></h2>
-                            <p class="contentLetter"></p>
-                            <div class="heartAnimation">
-                                <img src="./image/heartAnimation.gif" alt="">
-                            </div>
-                        </div>
-                        <div class="mewmew1">
-                            <img src="./image/mewmew.gif" alt="">
-                        </div>
-                        <div class="mewmew2">
-                            <img src="./image/mewmew.gif" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="before"></div>
-            </div>
+        <!-- Galaxy Controls -->
+        <div id="galaxy-controls" class="galaxy-controls" style="display: none;">
+            <button type="button" id="btn-toggle-music" class="control-btn" title="Bật/Tắt nhạc">
+                <i class="fa-solid fa-music"></i>
+            </button>
+            <button type="button" id="btn-replay" class="control-btn" title="Phát lại">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+            <button type="button" id="btn-back-letter" class="control-btn" title="Xem lại thư">
+                <i class="fa-solid fa-envelope"></i>
+            </button>
         </div>
 
+        <audio id="bgMusic" src="./audio.mp3" preload="auto"></audio>
     </div>
 
 
@@ -998,34 +1069,45 @@ giftbox .img {
 
         (() => {
             setTimeout(() => {
-                document.querySelector("#text-click").style.display = "inherit";
+                const clickHint = document.querySelector("#text-click");
+                if (clickHint) clickHint.style.display = "block";
             }, 4000);
-            document.querySelector("#rose-t").onclick = function () {
-                document.querySelector("#rose-t").style.display = "none";
-                document.querySelector("#castle").style.display = "flex";
-                document.querySelector("#theSvg").style.display = "inherit"
 
-                rid = window.requestAnimationFrame(Typing);
-                function Typing() {
+            const roseContainer = document.querySelector("#rose-t");
+            if (roseContainer) {
+                roseContainer.onclick = function () {
+                    document.querySelector("#rose-t").style.display = "none";
+                    document.querySelector("#castle").style.display = "flex";
+                    document.querySelector("#theSvg").style.display = "block";
+
                     rid = window.requestAnimationFrame(Typing);
-                    if (t >= 1) {
-                        window.cancelAnimationFrame(rid);
-                        rid = null;
-                    } else {
-                        t += 0.0025;
-                    }
+                    function Typing() {
+                        if (t >= 1) {
+                            t = 1;
+                            if (rid) window.cancelAnimationFrame(rid);
+                            rid = null;
+                        } else {
+                            t += 0.0025;
+                            rid = window.requestAnimationFrame(Typing);
+                        }
 
-                    lengthAtT = pathlength * t;
-                    for (index = 0; index < subpaths.length; index++) {
-                        if (subpaths[index].pathLength >= lengthAtT) {
-                            break;
+                        lengthAtT = pathlength * t;
+                        for (index = 0; index < subpaths.length; index++) {
+                            if (subpaths[index].pathLength >= lengthAtT) {
+                                break;
+                            }
+                        }
+                        if (index >= subpaths.length) index = subpaths.length - 1;
+
+                        if (subpaths[index]) {
+                            T = get_T(t, index);
+                            newPoints = getBezierPoints(T, subpaths[index].lastCubicBezier);
+                            drawCBezier(newPoints, partialPath, index);
                         }
                     }
-                    T = get_T(t, index);
-                    newPoints = getBezierPoints(T, subpaths[index].lastCubicBezier);
-                    drawCBezier(newPoints, partialPath, index);
-                }
+                };
             }
+
             const head = document.getElementsByTagName('head')[0];
             let animationId = 1;
 
@@ -1071,10 +1153,13 @@ giftbox .img {
                 head.appendChild(animation);
                 dust.classList.add('dustDef');
                 dust.setAttribute('style', `animation: blink${animationId++} ${fallingTime}s cubic-bezier(.71, .11, .68, .83) infinite ${animationDelay}s`);
-                document.getElementById(node).appendChild(dust);
+                let targetNode = document.getElementById(node) || document.getElementById('castle') || document.body;
+                if (targetNode) {
+                    targetNode.appendChild(dust);
+                }
             }
 
-            // yes, I'm doing it manually to get the effect I want.. can be easily changed to render randomly
+            // render magic dust particles
             [[130, 132, 150, 152, .15, 2.5, .1, 'sub'],
             [65, 63, 300, 299, .5, 2, .2, 'sub'],
             [70, 70, 150, 150, .45, 2, .5],
@@ -1100,77 +1185,722 @@ giftbox .img {
     </script>
 
     <script>
-        // .textLetter text h2
         let indexText = 0;
         let textLetter = document.querySelector('.textLetter h2');
         const textLetterH2 = "Gửi You💗!";
-        let timoutTextLetter;
+        let timoutTextLetter = null;
+
+        let indexTextContent = 0;
+        let textLetterContent = document.querySelector('.contentLetter');
+        const textLetterP = "Hôm nay là ngày 20/10 , ngày phụ nữ việt nam .Tớ xin gủi lời chúc mừng đến cậu ,chúc cậu có một ngày lễ tràn đầy niềm vui và hạnh phúc ,luôn may mắn và xinh đẹp .Xin gửi tất cả những điều tốt đẹp nhất đến cậu.💗";
+        let timoutTextLetterContent = null;
+        let autoTransitionTimer = null;
 
         function textCharLetter() {
             if (indexText < textLetterH2.length) {
                 textLetter.textContent += textLetterH2[indexText];
                 indexText++;
-                setTimeout(indexText, 100);
-            }
-            else {
+            } else {
                 clearInterval(timoutTextLetter);
+                timoutTextLetter = null;
                 setTimeout(() => {
-                    funcTimeoutLetterContent()
-                }, 500)
+                    funcTimeoutLetterContent();
+                }, 250);
             }
-        }
-        function funcTimeoutLetter() {
-            indexText = 0; // Reset indexText
-            textLetter.textContent = ''; // Xóa nội dung hiện tại của textLetter
-            clearInterval(timoutTextLetter);
-            timoutTextLetter = setInterval(() => {
-                textCharLetter();
-            }, 200)
         }
 
-        // chữ của thư bạn muốn gửi
-        let indexTextContent = 0;
-        let textLetterContent = document.querySelector('.contentLetter');
-        const textLetterP = "Hôm nay là ngày 20/10 , ngày phụ nữ việt nam .Tớ xin gủi lời chúc mừng đến cậu ,chúc cậu có một ngày lễ tràn đầy niềm vui và hạnh phúc ,luôn may mắn và xinh đẹp .Xin gửi tất cả những điều tốt đẹp nhất đến cậu.💗";
-        let timoutTextLetterContent;
+        function funcTimeoutLetter() {
+            if (timoutTextLetter) clearInterval(timoutTextLetter);
+            if (timoutTextLetterContent) clearInterval(timoutTextLetterContent);
+            indexText = 0;
+            if (textLetter) textLetter.textContent = '';
+            if (textLetterContent) textLetterContent.textContent = '';
+            timoutTextLetter = setInterval(() => {
+                textCharLetter();
+            }, 90);
+        }
+
         function textCharLetterContent() {
             if (indexTextContent < textLetterP.length) {
                 textLetterContent.textContent += textLetterP[indexTextContent];
                 indexTextContent++;
-                setTimeout(indexTextContent, 1);
-            }
-            else {
-                clearInterval(timoutTextLetterContent)
-
+            } else {
+                clearInterval(timoutTextLetterContent);
+                timoutTextLetterContent = null;
+                // Letter finished typing! Auto transition after 1.8s
+                if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
+                autoTransitionTimer = setTimeout(() => {
+                    if ($('.wrapperLetterForm').is(':visible')) {
+                        startGalaxyExperience();
+                    }
+                }, 1800);
             }
         }
+
         function funcTimeoutLetterContent() {
-            indexTextContent = 0; // Reset indexTextContent
-            textLetterContent.textContent = ''; // Xóa nội dung hiện tại của textLetter
-            clearInterval(timoutTextLetterContent);
+            if (timoutTextLetterContent) clearInterval(timoutTextLetterContent);
+            if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
+            indexTextContent = 0;
+            textLetterContent.textContent = '';
             timoutTextLetterContent = setInterval(() => {
                 textCharLetterContent();
-            }, 100)
+            }, 38);
         }
+
+        function openLetterModal() {
+            $('.card').stop().animate({
+                top: '-90px'
+            }, 250);
+            $('.wrapperLetterForm').stop(true, true).fadeIn(250);
+            funcTimeoutLetter();
+        }
+
+        function closeLetterModal() {
+            if (timoutTextLetter) clearInterval(timoutTextLetter);
+            if (timoutTextLetterContent) clearInterval(timoutTextLetterContent);
+            if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
+            $('.wrapperLetterForm').stop(true, true).fadeOut(250, function () {
+                $('.card').stop().animate({
+                    top: '0px'
+                }, 250);
+                // Directly transition into the falling effect!
+                startGalaxyExperience();
+            });
+        }
+
+        /* =========================================================
+           3D FALLING LOVE RAIN ENGINE (EFFECT AS IN VIDEO)
+           ========================================================= */
+        const galaxyEngine = (() => {
+            const canvas = document.getElementById('galaxy-canvas');
+            const ctx = canvas ? canvas.getContext('2d') : null;
+            const bgMusic = document.getElementById('bgMusic');
+            const controls = document.getElementById('galaxy-controls');
+            const btnMusic = document.getElementById('btn-toggle-music');
+            const btnReplay = document.getElementById('btn-replay');
+            const btnBack = document.getElementById('btn-back-letter');
+
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            let dpr = Math.min(window.devicePixelRatio || 1, 2);
+            let animationFrameId = null;
+            let isRunning = false;
+            let state = 'INTRO'; // 'INTRO' or 'FALLING'
+            let climaxTriggered = false;
+
+            // Falling Items & Particle simulation
+            let stars = [];
+            let fallingItems = [];
+            let particles = [];
+            let burstLetters = [];
+            let floatingHearts = [];
+
+            // Wind & Interaction physics
+            let windX = 0;
+            let targetWindX = 0;
+            let isDragging = false;
+            let lastTouchX = 0;
+            let lastMouseX = 0;
+
+            const loveTexts = [
+                "Thích siêu nhiều",
+                "Làm người iu tớ nha",
+                "Love you",
+                "Thích bạn lắm đó <3",
+                "Yêu em",
+                "Thương em",
+                "Thích cậu lắm",
+                "Yêu bạn nhiều",
+                "Love",
+                "Làm người iu tớ nhé",
+                "Cực thích cậu",
+                "Mãi yêu",
+                "iu rất nhiều",
+                "iu cậu lắm",
+                "Thích lắm rồi á",
+                "Làm người iu nha",
+                "Đáng yêu nhất trần đời",
+                "My crush",
+                "Trái tim này trao cậu",
+                "I love you 3000",
+                "Always with you",
+                "You are my world",
+                "Forever with you",
+                "Gặp được cậu là may mắn nhất",
+                "Bên nhau mãi nhé",
+                "Nhớ em thật nhiều",
+                "Thương bạn nhất"
+            ];
+
+            const colors = [
+                '#ffffff',
+                '#ff758c',
+                '#ff4d6d',
+                '#ff2a5f',
+                '#ff85a1',
+                '#f72585',
+                '#ffb3c1',
+                '#ffd166',
+                '#ffccd5'
+            ];
+
+            function resize() {
+                if (!canvas) return;
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                if (ctx) ctx.scale(dpr, dpr);
+            }
+
+            function initStars() {
+                stars = [];
+                const starCount = Math.floor(Math.min(width, height) * 0.35) + 120;
+                for (let i = 0; i < starCount; i++) {
+                    stars.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 1.5 + 0.4,
+                        alpha: Math.random() * 0.8 + 0.2,
+                        speed: Math.random() * 0.03 + 0.01,
+                        twinklePhase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function createFallingItem(startY) {
+                const isMobile = width < 600;
+                const isHeart = Math.random() < 0.22;
+                const text = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+
+                // Depth z: from -200 (far) to +200 (close)
+                const z = (Math.random() - 0.5) * 400;
+                const fov = 380;
+                const cameraDist = 420;
+                const scale = fov / (cameraDist + z);
+
+                // Horizontal position across screen with padding
+                const x = Math.random() * (width + 80) - 40;
+                const y = (startY !== undefined) ? startY : Math.random() * (height + 150) - 50;
+
+                // Speed proportional to depth (closer falls faster)
+                const baseSpeed = Math.random() * 0.9 + 0.8;
+                const speed = baseSpeed * scale;
+
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const isShort = text.length <= 8;
+                const baseSize = isHeart 
+                    ? (Math.random() * 6 + 16) 
+                    : (isShort ? (Math.random() * 4 + 14) : (Math.random() * 4 + 15));
+
+                const alpha = Math.max(0.48, Math.min(1.0, (z + 200) / 400 * 0.52 + 0.48));
+
+                return {
+                    isHeart: isHeart,
+                    text: text,
+                    x: x,
+                    y: y,
+                    z: z,
+                    scale: scale,
+                    speed: speed,
+                    color: color,
+                    baseSize: baseSize,
+                    alpha: alpha,
+                    swaySpeed: Math.random() * 0.02 + 0.01,
+                    swayAmp: Math.random() * 0.6 + 0.2,
+                    swayPhase: Math.random() * Math.PI * 2
+                };
+            }
+
+            function initFallingItems() {
+                fallingItems = [];
+                const isMobile = width < 600;
+                const totalItems = isMobile ? 220 : 320;
+                for (let i = 0; i < totalItems; i++) {
+                    const initialY = Math.random() * (height + 100) - 50;
+                    fallingItems.push(createFallingItem(initialY));
+                }
+            }
+
+            function drawHeart(x, y, size, color, alpha) {
+                ctx.save();
+                ctx.translate(x, y);
+                const s = size / 30;
+                ctx.scale(s, s);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-14, -14, -28, 4, 0, 24);
+                ctx.bezierCurveTo(28, 4, 14, -14, 0, 0);
+                ctx.fillStyle = color;
+                ctx.globalAlpha = alpha;
+                ctx.shadowColor = color;
+                ctx.shadowBlur = Math.min(14, size * 0.7);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function spawnHeartBurst(x, y, count = 100) {
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 8 + 2;
+                    const isHeart = Math.random() < 0.45;
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        size: Math.random() * 12 + 6,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        alpha: 1,
+                        decay: Math.random() * 0.015 + 0.01,
+                        rot: Math.random() * Math.PI * 2,
+                        vRot: (Math.random() - 0.5) * 0.1,
+                        isHeart: isHeart
+                    });
+                }
+            }
+
+            // Climax Swirling Letters (video 00:19)
+            function triggerClimaxEffect() {
+                climaxTriggered = true;
+                const cx = width / 2;
+                const cy = height / 2;
+
+                // Firework explosion in center
+                spawnHeartBurst(cx, cy, 120);
+
+                // Swirling flying letters
+                const burstChars = ['u', 'p', 'b', 'E', 'h', 'a', 'o', 'd', 'n', 't', '!', '?', '♥', '♪', 'y', 'ê', 'u', 'c', 'h', 'ơ', 'i'];
+                for (let i = 0; i < 55; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 6.5 + 2.5;
+                    burstLetters.push({
+                        char: burstChars[Math.floor(Math.random() * burstChars.length)],
+                        x: cx + (Math.random() - 0.5) * 40,
+                        y: cy + (Math.random() - 0.5) * 40,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        rot: Math.random() * Math.PI * 2,
+                        vRot: (Math.random() - 0.5) * 0.09,
+                        scale: 0.4,
+                        scaleGrowth: Math.random() * 0.022 + 0.016,
+                        alpha: 1,
+                        color: Math.random() > 0.4 ? '#ffffff' : colors[Math.floor(Math.random() * colors.length)]
+                    });
+                }
+            }
+
+            function spawnTapHeart(x, y) {
+                floatingHearts.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: -(Math.random() * 3 + 2.5),
+                    size: Math.random() * 14 + 14,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1,
+                    decay: 0.018,
+                    rot: (Math.random() - 0.5) * 0.4
+                });
+            }
+
+            function loop(timestamp) {
+                if (!isRunning) return;
+                const time = timestamp * 0.001;
+
+                // 1. Clear background with subtle cosmic gradient
+                ctx.clearRect(0, 0, width, height);
+
+                const grad = ctx.createRadialGradient(width / 2, height / 2, 20, width / 2, height / 2, Math.max(width, height) * 0.7);
+                grad.addColorStop(0, '#1c0824');
+                grad.addColorStop(0.5, '#0d0314');
+                grad.addColorStop(1, '#030107');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, width, height);
+
+                // 2. Render background starfield
+                for (let i = 0; i < stars.length; i++) {
+                    const star = stars[i];
+                    const twinkle = Math.sin(time * 3 + star.twinklePhase) * 0.35 + 0.65;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.globalAlpha = star.alpha * twinkle;
+                    ctx.shadowColor = '#ffffff';
+                    ctx.shadowBlur = 4;
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                // 3. Render Falling Love Rain if in FALLING state
+                if (state === 'FALLING') {
+                    // Climax check at ~18.2s
+                    if (bgMusic && bgMusic.currentTime >= 18.2 && !climaxTriggered) {
+                        triggerClimaxEffect();
+                    }
+
+                    // Smooth wind decay
+                    windX += (targetWindX - windX) * 0.05;
+                    targetWindX *= 0.96;
+
+                    // Sort back to front (z ascending)
+                    fallingItems.sort((a, b) => a.z - b.z);
+
+                    for (let i = 0; i < fallingItems.length; i++) {
+                        const item = fallingItems[i];
+
+                        // Falling movement
+                        item.y += item.speed;
+                        item.x += Math.sin(time * item.swaySpeed + item.swayPhase) * item.swayAmp + windX;
+
+                        // Wrap when reaching bottom
+                        if (item.y > height + 60) {
+                            item.y = -60 - Math.random() * 60;
+                            item.x = Math.random() * (width + 80) - 40;
+                            item.z = (Math.random() - 0.5) * 400;
+                            const fov = 380;
+                            const cameraDist = 420;
+                            item.scale = fov / (cameraDist + item.z);
+                            item.speed = (Math.random() * 0.9 + 0.8) * item.scale;
+                            item.alpha = Math.max(0.48, Math.min(1.0, (item.z + 200) / 400 * 0.52 + 0.48));
+                            item.isHeart = Math.random() < 0.22;
+                            item.text = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+                            item.color = colors[Math.floor(Math.random() * colors.length)];
+                            const isShort = item.text.length <= 8;
+                            item.baseSize = item.isHeart 
+                                ? (Math.random() * 6 + 16) 
+                                : (isShort ? (Math.random() * 4 + 14) : (Math.random() * 4 + 15));
+                        }
+
+                        // Render
+                        if (item.x < -120 || item.x > width + 120 || item.y < -80 || item.y > height + 80) continue;
+
+                        if (item.isHeart) {
+                            drawHeart(item.x, item.y, item.baseSize * item.scale, item.color, item.alpha);
+                        } else {
+                            ctx.save();
+                            const fontSize = Math.round(item.baseSize * item.scale);
+                            ctx.font = `800 ${fontSize}px "Montserrat", "Segoe UI", sans-serif`;
+                            ctx.fillStyle = item.color;
+                            ctx.globalAlpha = item.alpha;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.shadowColor = item.color;
+                            ctx.shadowBlur = Math.min(12, 6 * item.scale);
+                            // Thicken text strokes
+                            ctx.lineWidth = Math.max(0.8, fontSize * 0.05);
+                            ctx.strokeStyle = item.color;
+                            ctx.strokeText(item.text, item.x, item.y);
+                            ctx.fillText(item.text, item.x, item.y);
+                            ctx.restore();
+                        }
+                    }
+
+                    // 4. Update & draw burst letters (Climax)
+                    for (let i = burstLetters.length - 1; i >= 0; i--) {
+                        const bl = burstLetters[i];
+                        bl.x += bl.vx;
+                        bl.y += bl.vy;
+                        bl.rot += bl.vRot;
+                        bl.scale += bl.scaleGrowth;
+                        bl.vx *= 0.99;
+                        bl.vy *= 0.99;
+                        if (bl.scale > 1.8) {
+                            bl.alpha -= 0.018;
+                        }
+                        if (bl.alpha <= 0) {
+                            burstLetters.splice(i, 1);
+                            continue;
+                        }
+
+                        ctx.save();
+                        ctx.translate(bl.x, bl.y);
+                        ctx.rotate(bl.rot);
+                        ctx.font = `800 ${Math.round(22 * bl.scale)}px "Montserrat", sans-serif`;
+                        ctx.fillStyle = bl.color;
+                        ctx.globalAlpha = Math.max(0, bl.alpha);
+                        ctx.shadowColor = bl.color;
+                        ctx.shadowBlur = 12 * bl.scale;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(bl.char, 0, 0);
+                        ctx.restore();
+                    }
+
+                    // 5. Update & draw explosion particles
+                    for (let i = particles.length - 1; i >= 0; i--) {
+                        const pt = particles[i];
+                        pt.x += pt.vx;
+                        pt.y += pt.vy;
+                        pt.vx *= 0.97;
+                        pt.vy *= 0.97;
+                        pt.rot += pt.vRot;
+                        pt.alpha -= pt.decay;
+                        if (pt.alpha <= 0) {
+                            particles.splice(i, 1);
+                            continue;
+                        }
+
+                        if (pt.isHeart) {
+                            drawHeart(pt.x, pt.y, pt.size, pt.color, pt.alpha);
+                        } else {
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.arc(pt.x, pt.y, pt.size * 0.4, 0, Math.PI * 2);
+                            ctx.fillStyle = pt.color;
+                            ctx.globalAlpha = pt.alpha;
+                            ctx.shadowColor = pt.color;
+                            ctx.shadowBlur = 8;
+                            ctx.fill();
+                            ctx.restore();
+                        }
+                    }
+
+                    // 6. Update & draw interactive floating hearts
+                    for (let i = floatingHearts.length - 1; i >= 0; i--) {
+                        const fh = floatingHearts[i];
+                        fh.x += fh.vx;
+                        fh.y += fh.vy;
+                        fh.alpha -= fh.decay;
+                        if (fh.alpha <= 0) {
+                            floatingHearts.splice(i, 1);
+                            continue;
+                        }
+                        drawHeart(fh.x, fh.y, fh.size, fh.color, fh.alpha);
+                    }
+                }
+
+                animationFrameId = requestAnimationFrame(loop);
+            }
+
+            function start() {
+                resize();
+                initStars();
+                initFallingItems();
+                state = 'FALLING';
+                climaxTriggered = false;
+                particles = [];
+                burstLetters = [];
+                floatingHearts = [];
+
+                if (controls) controls.style.display = 'flex';
+
+                // Play Audio
+                if (bgMusic) {
+                    bgMusic.currentTime = 0;
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            if (btnMusic) btnMusic.classList.add('playing');
+                        }).catch(e => {
+                            console.log("Audio play caught:", e);
+                            if (btnMusic) btnMusic.classList.add('playing');
+                        });
+                    }
+                }
+
+                // Heart blast burst in center
+                spawnHeartBurst(width / 2, height / 2, 120);
+
+                isRunning = true;
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(loop);
+            }
+
+            function stop() {
+                isRunning = false;
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                if (bgMusic) {
+                    bgMusic.pause();
+                }
+                if (btnMusic) btnMusic.classList.remove('playing');
+            }
+
+            // Event Listeners for Touch/Mouse interaction
+            window.addEventListener('resize', () => {
+                resize();
+                initStars();
+                initFallingItems();
+            });
+
+            // Drag / Touch interaction for wind and sway
+            if (canvas) {
+                canvas.addEventListener('mousedown', (e) => {
+                    if (state !== 'FALLING') return;
+                    isDragging = true;
+                    lastMouseX = e.clientX;
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (state !== 'FALLING') return;
+                    if (isDragging) {
+                        const dx = e.clientX - lastMouseX;
+                        targetWindX = dx * 0.12;
+                        lastMouseX = e.clientX;
+                    }
+                });
+
+                window.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                canvas.addEventListener('touchstart', (e) => {
+                    if (state !== 'FALLING') return;
+                    if (e.touches.length === 1) {
+                        isDragging = true;
+                        lastTouchX = e.touches[0].clientX;
+                        spawnTapHeart(lastTouchX, e.touches[0].clientY);
+                    }
+                }, { passive: true });
+
+                canvas.addEventListener('touchmove', (e) => {
+                    if (state !== 'FALLING' || !isDragging) return;
+                    if (e.touches.length === 1) {
+                        const tx = e.touches[0].clientX;
+                        const dx = tx - lastTouchX;
+                        targetWindX = dx * 0.15;
+                        lastTouchX = tx;
+                    }
+                }, { passive: true });
+
+                canvas.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+
+                // Click to spawn floating hearts
+                canvas.addEventListener('click', (e) => {
+                    if (state === 'FALLING') {
+                        spawnTapHeart(e.clientX, e.clientY);
+                    }
+                });
+            }
+
+            // Controls
+            if (btnMusic) {
+                btnMusic.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (!bgMusic) return;
+                    if (bgMusic.paused) {
+                        bgMusic.play();
+                        btnMusic.classList.add('playing');
+                    } else {
+                        bgMusic.pause();
+                        btnMusic.classList.remove('playing');
+                    }
+                });
+            }
+
+            if (btnReplay) {
+                btnReplay.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (bgMusic) {
+                        bgMusic.currentTime = 0;
+                        bgMusic.play();
+                        if (btnMusic) btnMusic.classList.add('playing');
+                    }
+                    climaxTriggered = false;
+                    spawnHeartBurst(width / 2, height / 2, 80);
+                });
+            }
+
+            if (btnBack) {
+                btnBack.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    stop();
+                    $('#galaxy-container').fadeOut(300, () => {
+                        $('#castle').fadeIn(300);
+                        openLetterModal();
+                    });
+                });
+            }
+
+            // Music loop handling
+            if (bgMusic) {
+                bgMusic.addEventListener('ended', () => {
+                    bgMusic.currentTime = 0;
+                    bgMusic.play();
+                    climaxTriggered = false;
+                });
+            }
+
+            return {
+                start: start,
+                stop: stop
+            };
+        })();
+
+        // Start Galaxy Experience transition
+        function startGalaxyExperience() {
+            if (timoutTextLetter) clearInterval(timoutTextLetter);
+            if (timoutTextLetterContent) clearInterval(timoutTextLetterContent);
+            if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
+            $('.wrapperLetterForm').stop(true, true).fadeOut(300);
+            $('#castle, #rose-t, #theSvg').fadeOut(350, () => {
+                $('#galaxy-container').fadeIn(400, () => {
+                    galaxyEngine.start();
+                });
+            });
+        }
+
         $(document).ready(function () {
+            // Hover for desktop
             $('.valentines').mouseenter(function () {
-                $('.card').stop().animate({
-                    top: '-90px'
-                }, 'slow');
+                if (!$('.wrapperLetterForm').is(':visible')) {
+                    $('.card').stop().animate({
+                        top: '-90px'
+                    }, 'slow');
+                }
             }).mouseleave(function () {
-                $('.card').stop().animate({
-                    top: 0
-                }, 'slow');
+                if (!$('.wrapperLetterForm').is(':visible')) {
+                    $('.card').stop().animate({
+                        top: '0px'
+                    }, 'slow');
+                }
             });
 
-            $('.card').click(function () {
-                $('.box-content').addClass('active');
-                $(".wrapperLetterForm").fadeIn()
-                funcTimeoutLetter();
+            // Tap / click support for mobile and desktop
+            $(document).on('click', '.letter, .valentines, .card, .envelope', function (e) {
+                if ($('.wrapperLetterForm').is(':visible')) return;
+                openLetterModal();
             });
 
-            $('.fa-xmark').click(function () {
-                $('.wrapperLetterForm').css('display','none');
+            $(document).on('click', '.fa-xmark', function (e) {
+                e.stopPropagation();
+                closeLetterModal();
+            });
+
+            // Tap backdrop to close and enter effect
+            $(document).on('click', '.wrapperLetterForm', function (e) {
+                if (e.target === this || $(e.target).hasClass('boxLetter')) {
+                    closeLetterModal();
+                }
+            });
+
+            // Tap inside letter while typing to finish instantly, or tap to enter effect
+            $('.formLetter').on('click', function (e) {
+                if ($(e.target).closest('#btnOpenGalaxy').length) return;
+                if (timoutTextLetterContent || timoutTextLetter) {
+                    if (timoutTextLetter) clearInterval(timoutTextLetter);
+                    if (timoutTextLetterContent) clearInterval(timoutTextLetterContent);
+                    timoutTextLetter = null;
+                    timoutTextLetterContent = null;
+                    textLetter.textContent = textLetterH2;
+                    textLetterContent.textContent = textLetterP;
+                    if (autoTransitionTimer) clearTimeout(autoTransitionTimer);
+                    autoTransitionTimer = setTimeout(() => {
+                        if ($('.wrapperLetterForm').is(':visible')) {
+                            startGalaxyExperience();
+                        }
+                    }, 1400);
+                } else {
+                    startGalaxyExperience();
+                }
             });
         });
         var leafOne = document.querySelector('.leafOne');
